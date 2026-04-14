@@ -50,66 +50,100 @@ function Nav({pg,go,wide,sc}){
 
 // ─── HOMEPAGE ─────────────────────────────────────────
 function Home({go,onPick,wide}){
-  const featured=ARTISTS.filter(a=>a.featured);
-  const stats=[{n:"5,200+",l:"Artists"},{n:"48,000+",l:"Bookings"},{n:"120+",l:"Cities"},{n:"4.9",l:"Avg Rating"}];
-  const E=React.createElement;
-  return E("div",{style:{padding:wide?"0 0 60px":"0 0 100px"}},
-    // Hero
-    E("div",{style:{position:"relative",overflow:"hidden",padding:wide?"100px 60px 80px":"60px 20px 40px",textAlign:"center"}},
-      E("div",{style:{position:"absolute",inset:0,background:"radial-gradient(ellipse at 50% 0%,rgba(204,255,0,0.06) 0%,transparent 60%)"}}),
+  const E=React.createElement;const p=wide?"60px":"16px";const mx=wide?900:undefined;
+  function Sec({children,bg,py}){return E("div",{style:{padding:(py||wide?"60px":"32px")+" "+p,background:bg||"transparent"}},E("div",{style:{maxWidth:mx,margin:wide?"0 auto":0}},children))}
+  function Feat({icon,title,desc}){return E("div",{style:{display:"flex",gap:14,alignItems:"flex-start"}},E("div",{style:{width:44,height:44,borderRadius:12,background:V.acD,border:"1px solid "+V.acB,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}},icon),E("div",null,E("div",{style:{fontSize:wide?17:15,fontWeight:700,color:V.tx,fontFamily:V.b,marginBottom:4}},title),E("div",{style:{fontSize:14,color:V.md,fontFamily:V.b,lineHeight:1.6}},desc)))}
+
+  return E("div",{style:{paddingBottom:wide?0:80}},
+    // HERO
+    E("div",{style:{position:"relative",overflow:"hidden",padding:wide?"120px 60px 100px":"60px 20px 48px",textAlign:"center"}},
+      E("div",{style:{position:"absolute",inset:0,background:"radial-gradient(ellipse at 50% -20%,rgba(204,255,0,0.08) 0%,transparent 50%)"}}),
       E("div",{style:{position:"relative",zIndex:1,maxWidth:800,margin:"0 auto"}},
-        E("div",{style:{fontSize:13,fontWeight:700,color:V.ac,fontFamily:V.b,letterSpacing:3,textTransform:"uppercase",marginBottom:16}},"THE FUTURE OF TATTOO BOOKING"),
-        E("h1",{style:{fontSize:wide?80:48,fontFamily:V.h,color:V.tx,letterSpacing:wide?6:3,margin:0,lineHeight:1}},"YOUR NEXT TATTOO",E("br"),E("span",{style:{color:V.ac}},"STARTS HERE")),
-        E("p",{style:{fontSize:wide?18:15,color:V.md,fontFamily:V.b,marginTop:16,lineHeight:1.7,maxWidth:500,marginLeft:"auto",marginRight:"auto"}},"Discover world-class tattoo artists. Browse real portfolios. Book sessions and pay on your terms. All in one place."),
-        E("div",{style:{display:"flex",gap:12,justifyContent:"center",marginTop:28,flexWrap:"wrap"}},
-          E("button",{onClick:()=>go("discover"),style:{background:V.ac,color:V.bg,border:"none",borderRadius:12,padding:wide?"16px 40px":"14px 32px",fontSize:wide?16:14,fontWeight:700,fontFamily:V.b,cursor:"pointer",letterSpacing:0.5}},"\u{1F50D} Find Artists"),
-          E("button",{onClick:()=>go("community"),style:{background:"transparent",color:V.tx,border:"1px solid "+V.bd,borderRadius:12,padding:wide?"16px 40px":"14px 32px",fontSize:wide?16:14,fontWeight:600,fontFamily:V.b,cursor:"pointer"}},"\u{1F4AC} Join Community")))),
-    // Stats
-    E("div",{style:{display:"grid",gridTemplateColumns:wide?"repeat(4,1fr)":"repeat(2,1fr)",gap:wide?0:1,background:wide?"transparent":V.bd,borderTop:"1px solid "+V.bd,borderBottom:"1px solid "+V.bd,margin:wide?"40px 60px":"24px 0"}},
-      stats.map((s,i)=>E("div",{key:i,style:{padding:wide?"24px 0":"20px 0",textAlign:"center",background:V.bg,borderRight:wide&&i<3?"1px solid "+V.bd:"none"}},
-        E("div",{style:{fontSize:wide?36:28,fontWeight:700,color:V.ac,fontFamily:V.m}},s.n),
-        E("div",{style:{fontSize:12,color:V.md,fontFamily:V.b,marginTop:4}},s.l)))),
-    // Featured artists
-    E("div",{style:{padding:wide?"40px 60px 0":"24px 16px 0"}},
+        E("div",{style:{display:"inline-block",background:V.acD,border:"1px solid "+V.acB,borderRadius:20,padding:"6px 16px",fontSize:12,fontWeight:700,color:V.ac,fontFamily:V.b,letterSpacing:1.5,marginBottom:20}},"5,200+ ARTISTS \u00B7 48,000+ BOOKINGS \u00B7 120+ CITIES"),
+        E("h1",{style:{fontSize:wide?76:42,fontFamily:V.h,color:V.tx,letterSpacing:wide?5:2,margin:0,lineHeight:1.05}},"STOP SCROLLING",E("br"),"INSTAGRAM FOR",E("br"),E("span",{style:{color:V.ac}},"TATTOO ARTISTS")),
+        E("p",{style:{fontSize:wide?20:16,color:V.md,fontFamily:V.b,marginTop:20,lineHeight:1.7,maxWidth:560,marginLeft:"auto",marginRight:"auto"}},"InkBook is where serious collectors find verified artists, browse real portfolios, book sessions, FaceTime consult, and pay on their terms. All in one place."),
+        E("div",{style:{display:"flex",gap:12,justifyContent:"center",marginTop:32,flexWrap:"wrap"}},
+          E("button",{onClick:()=>go("discover"),style:{background:V.ac,color:V.bg,border:"none",borderRadius:12,padding:wide?"18px 48px":"16px 36px",fontSize:wide?17:15,fontWeight:700,fontFamily:V.b,cursor:"pointer"}},"Find Your Artist \u2192"),
+          E("button",{onClick:()=>go("community"),style:{background:"transparent",color:V.tx,border:"1px solid "+V.bd,borderRadius:12,padding:wide?"18px 48px":"16px 36px",fontSize:wide?17:15,fontWeight:600,fontFamily:V.b,cursor:"pointer"}},"See the Community")),
+        E("p",{style:{fontSize:12,color:V.dm,fontFamily:V.b,marginTop:16}},"Free to browse. Free to join. Artists pay only when they get booked."))),
+
+    // PROBLEM
+    Sec({bg:V.sf,children:E(React.Fragment,null,
+      E("div",{style:{textAlign:"center",marginBottom:wide?40:24}},
+        E("h2",{style:{fontSize:wide?44:30,fontFamily:V.h,color:V.tx,letterSpacing:2,margin:0}},"THE OLD WAY IS BROKEN"),
+        E("p",{style:{fontSize:15,color:V.md,fontFamily:V.b,marginTop:8}},"Finding a tattoo artist right now is a nightmare.")),
+      E("div",{style:{display:"grid",gridTemplateColumns:wide?"1fr 1fr 1fr":"1fr",gap:16}},
+        [{x:"\u2718",t:"Endless Instagram scrolling",d:"You spend hours digging through hashtags, DMs go unanswered, and you can't tell who's actually good from the filters."},{x:"\u2718",t:"No pricing transparency",d:"You have no idea what anything costs until you're already in the chair. Surprise $500 sessions. No payment plans."},{x:"\u2718",t:"Zero booking system",d:"DM. Wait. Follow up. Wait. Send reference pics again. Maybe get a date 3 months out. Maybe."}].map((item,i)=>E("div",{key:i,style:{background:V.cd,borderRadius:14,padding:wide?"28px":"20px",border:"1px solid "+V.bd}},
+          E("div",{style:{fontSize:20,color:V.rd,marginBottom:10}},item.x),
+          E("div",{style:{fontSize:wide?18:16,fontWeight:700,color:V.tx,fontFamily:V.b,marginBottom:8}},item.t),
+          E("div",{style:{fontSize:14,color:V.md,fontFamily:V.b,lineHeight:1.6}},item.d))))),
+    }),
+
+    // SOLUTION — FEATURES
+    Sec({children:E(React.Fragment,null,
+      E("div",{style:{textAlign:"center",marginBottom:wide?48:24}},
+        E("div",{style:{fontSize:13,fontWeight:700,color:V.ac,fontFamily:V.b,letterSpacing:2,marginBottom:8}},"THE INKBOOK WAY"),
+        E("h2",{style:{fontSize:wide?44:30,fontFamily:V.h,color:V.tx,letterSpacing:2,margin:0}},"EVERYTHING YOU NEED.",E("br"),"NOTHING YOU DON'T.")),
+      E("div",{style:{display:"grid",gridTemplateColumns:wide?"1fr 1fr":"1fr",gap:wide?28:20}},
+        [
+          {icon:"\u{1F50D}",title:"Search by style, location, and price",desc:"Filter by Black & Grey, Japanese, Neo-Traditional, and 8 more styles. See who's near you. Know the hourly rate before you message anyone."},
+          {icon:"\u{1F4F8}",title:"Real portfolios, not filtered posts",desc:"Every artist has a dedicated page with their full body of work. High-res photos. Descriptions. Community likes and comments on every piece."},
+          {icon:"\u2B50",title:"Verified reviews from real clients",desc:"No fake reviews. Every review is tied to a confirmed booking. See ratings, read detailed experiences, know exactly what you're getting."},
+          {icon:"\u{1F4F9}",title:"FaceTime consults before you commit",desc:"Talk to your artist face-to-face before booking. Discuss your idea, see their vibe, confirm the vision. No more guessing from DMs."},
+          {icon:"\u{1F4C5}",title:"Real-time booking with calendar",desc:"See their actual availability. Pick a date and time. Get instant confirmation. No more DM ping-pong that takes 3 weeks."},
+          {icon:"\u{1F4B3}",title:"Payment plans that actually work",desc:"Pay in full, split in 2, 4 installments, or monthly for big pieces. No interest. No third-party apps. Built right into the booking flow."},
+          {icon:"\u{1F4AC}",title:"Community of collectors",desc:"Share your ink, get healing advice, ask for recommendations, review artists. A real community, not an algorithm."},
+          {icon:"\u2764\uFE0F",title:"Save and compare artists",desc:"Heart the artists you like. Come back later. Compare portfolios side by side. Take your time finding the right one."},
+        ].map((f,i)=>E(Feat,{key:i,...f}))),
+    )}),
+
+    // SOCIAL PROOF
+    Sec({bg:V.sf,children:E(React.Fragment,null,
+      E("div",{style:{textAlign:"center",marginBottom:wide?40:24}},
+        E("h2",{style:{fontSize:wide?44:30,fontFamily:V.h,color:V.tx,letterSpacing:2,margin:0}},"DON'T TAKE OUR WORD FOR IT")),
+      E("div",{style:{display:"grid",gridTemplateColumns:wide?"1fr 1fr 1fr":"1fr",gap:16}},
+        [{q:"Found my artist in 10 minutes. My last tattoo took 3 months of Instagram stalking to find someone I trusted.",u:"@alexthunder",r:"5.0"},{q:"The FaceTime consult changed everything. I knew exactly what I was getting before I walked in. No surprises.",u:"@tattoo_virgin",r:"5.0"},{q:"Payment plan meant I could finally get the full sleeve I wanted without saving up for a year first.",u:"@healingcheck",r:"5.0"}].map((t,i)=>E("div",{key:i,style:{background:V.cd,borderRadius:14,padding:wide?"24px":"18px",border:"1px solid "+V.bd}},
+          E("div",{style:{color:V.ac,fontSize:14,marginBottom:8}},"\u2605\u2605\u2605\u2605\u2605"),
+          E("p",{style:{fontSize:15,color:V.tx,fontFamily:V.b,lineHeight:1.65,margin:"0 0 12px",fontStyle:"italic"}},'"'+t.q+'"'),
+          E("div",{style:{fontSize:13,color:V.md,fontFamily:V.b}},t.u))))),
+    }),
+
+    // FEATURED ARTISTS
+    Sec({children:E(React.Fragment,null,
       E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}},
-        E("div",null,E("h2",{style:{fontSize:wide?36:28,fontFamily:V.h,color:V.tx,letterSpacing:2,margin:0}},"FEATURED ARTISTS"),E("p",{style:{fontSize:14,color:V.md,fontFamily:V.b,marginTop:4}},"Handpicked talent, vetted by the community")),
+        E("h2",{style:{fontSize:wide?36:28,fontFamily:V.h,color:V.tx,letterSpacing:2,margin:0}},"FEATURED ARTISTS"),
         E("button",{onClick:()=>go("discover"),style:{background:V.cd,color:V.ac,border:"1px solid "+V.bd,borderRadius:8,padding:"8px 16px",fontSize:12,fontWeight:600,fontFamily:V.b,cursor:"pointer"}},"View All \u2192")),
       E("div",{style:{display:"grid",gridTemplateColumns:wide?"repeat(3,1fr)":"1fr",gap:16}},
-        featured.map(a=>E("div",{key:a.id,onClick:()=>onPick(a),style:{background:V.cd,borderRadius:16,overflow:"hidden",border:"1px solid "+V.bd,cursor:"pointer",transition:"all 0.2s"}},
-          E("div",{style:{position:"relative"}},
-            E(Pic,{src:a.portfolio[0].img,h:wide?240:180}),
-            E("div",{style:{position:"absolute",inset:0,background:"linear-gradient(180deg,transparent 50%,rgba(10,10,10,0.9) 100%)"}}),
-            E("div",{style:{position:"absolute",bottom:12,left:14,right:14,display:"flex",alignItems:"flex-end",gap:10}},
-              E(Face,{src:a.avatar,size:44,name:a.name,hue:a.hue}),
-              E("div",null,E("div",{style:{fontSize:17,fontWeight:700,color:V.tx,fontFamily:V.b}},a.name),E("div",{style:{fontSize:12,color:V.md,fontFamily:V.b}},a.location)))),
-          E("div",{style:{padding:"12px 14px"}},
-            E("div",{style:{display:"flex",gap:5,flexWrap:"wrap",marginBottom:8}},a.styles.map(s=>E("span",{key:s,style:{background:V.sf,border:"1px solid "+V.bd,borderRadius:4,padding:"2px 8px",fontSize:10,color:V.md,fontFamily:V.b}},s))),
-            E("div",{style:{display:"flex",justifyContent:"space-between",fontSize:12,color:V.md,fontFamily:V.b}},E("span",null,"\u2B50 ",a.rating," (",a.reviews,")"),E("span",{style:{color:V.ac,fontWeight:700,fontFamily:V.m}},"$",a.hourly,"/hr"))))))),
-    // How it works
-    E("div",{style:{padding:wide?"60px 60px 0":"32px 16px 0"}},
-      E("h2",{style:{fontSize:wide?36:28,fontFamily:V.h,color:V.tx,letterSpacing:2,margin:"0 0 24px",textAlign:"center"}},"HOW IT WORKS"),
-      E("div",{style:{display:"grid",gridTemplateColumns:wide?"repeat(4,1fr)":"repeat(2,1fr)",gap:16}},
-        [{i:"\u{1F50D}",t:"Discover",d:"Browse artists by style, location, and price"},{i:"\u{1F4F8}",t:"Review Work",d:"Explore full portfolios and read verified reviews"},{i:"\u{1F4F9}",t:"Consult",d:"FaceTime your artist to discuss your vision"},{i:"\u{1F4C5}",t:"Book & Pay",d:"Pick a date, choose a payment plan, confirm"}].map((s,i)=>E("div",{key:i,style:{background:V.cd,borderRadius:14,padding:wide?"28px 24px":"20px 16px",border:"1px solid "+V.bd,textAlign:"center"}},
-          E("div",{style:{fontSize:32,marginBottom:10}},s.i),
-          E("div",{style:{fontSize:16,fontWeight:700,color:V.tx,fontFamily:V.b,marginBottom:6}},s.t),
-          E("div",{style:{fontSize:13,color:V.md,fontFamily:V.b,lineHeight:1.5}},s.d))))),
-    // Recent community
-    E("div",{style:{padding:wide?"60px 60px 0":"32px 16px 0"}},
-      E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}},
-        E("h2",{style:{fontSize:wide?36:28,fontFamily:V.h,color:V.tx,letterSpacing:2,margin:0}},"FROM THE COMMUNITY"),
-        E("button",{onClick:()=>go("community"),style:{background:V.cd,color:V.ac,border:"1px solid "+V.bd,borderRadius:8,padding:"8px 16px",fontSize:12,fontWeight:600,fontFamily:V.b,cursor:"pointer"}},"View All \u2192")),
-      E("div",{style:{display:"grid",gridTemplateColumns:wide?"repeat(3,1fr)":"1fr",gap:12}},
-        POSTS.filter(p=>p.img).slice(0,3).map(p=>E("div",{key:p.id,style:{background:V.cd,borderRadius:14,overflow:"hidden",border:"1px solid "+V.bd}},
-          E(Pic,{src:p.img,h:wide?180:140}),
-          E("div",{style:{padding:"10px 14px"}},
-            E("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:6}},E(Face,{src:p.av,size:24,name:p.user,hue:80}),E("span",{style:{fontSize:13,fontWeight:600,color:V.tx,fontFamily:V.b}},p.user)),
-            E("p",{style:{fontSize:13,color:V.md,fontFamily:V.b,lineHeight:1.5,margin:0}},p.text.slice(0,80)+"..."))))),
-    // CTA
-    E("div",{style:{padding:wide?"60px 60px 0":"32px 16px 0",textAlign:"center"}},
-      E("div",{style:{background:V.cd,borderRadius:20,padding:wide?"48px":"32px 20px",border:"1px solid "+V.bd}},
-        E("h2",{style:{fontSize:wide?40:28,fontFamily:V.h,color:V.tx,letterSpacing:2,margin:0}},"READY TO GET INKED?"),
-        E("p",{style:{fontSize:wide?16:14,color:V.md,fontFamily:V.b,marginTop:8,lineHeight:1.6}},"Join thousands of people finding their perfect artist on InkBook."),
-        E("button",{onClick:()=>go("discover"),style:{background:V.ac,color:V.bg,border:"none",borderRadius:12,padding:"16px 40px",fontSize:16,fontWeight:700,fontFamily:V.b,cursor:"pointer",marginTop:20}},"\u{1F50D} Find Your Artist"))))
+        ARTISTS.filter(a=>a.featured).map(a=>E("div",{key:a.id,onClick:()=>onPick(a),style:{background:V.cd,borderRadius:16,overflow:"hidden",border:"1px solid "+V.bd,cursor:"pointer"}},
+          E("div",{style:{position:"relative"}},E(Pic,{src:a.portfolio[0].img,h:wide?220:180}),E("div",{style:{position:"absolute",inset:0,background:"linear-gradient(180deg,transparent 40%,rgba(10,10,10,0.9) 100%)"}}),
+            E("div",{style:{position:"absolute",bottom:12,left:14,display:"flex",alignItems:"flex-end",gap:10}},E(Face,{src:a.avatar,size:40,name:a.name,hue:a.hue}),E("div",null,E("div",{style:{fontSize:16,fontWeight:700,color:V.tx,fontFamily:V.b}},a.name),E("div",{style:{fontSize:12,color:V.md,fontFamily:V.b}},a.location)))),
+          E("div",{style:{padding:"12px 14px",display:"flex",justifyContent:"space-between",alignItems:"center"}},
+            E("div",{style:{display:"flex",gap:5}},a.styles.slice(0,2).map(s=>E("span",{key:s,style:{background:V.sf,border:"1px solid "+V.bd,borderRadius:4,padding:"2px 8px",fontSize:10,color:V.md,fontFamily:V.b}},s))),
+            E("span",{style:{color:V.ac,fontWeight:700,fontFamily:V.m,fontSize:14}},"$"+a.hourly+"/hr"))))),
+    )}),
+
+    // FOR ARTISTS
+    Sec({bg:V.sf,children:E(React.Fragment,null,
+      E("div",{style:{display:wide?"flex":"block",gap:48,alignItems:"center"}},
+        E("div",{style:{flex:1,marginBottom:wide?0:24}},
+          E("div",{style:{fontSize:13,fontWeight:700,color:V.wm,fontFamily:V.b,letterSpacing:2,marginBottom:8}},"FOR ARTISTS"),
+          E("h2",{style:{fontSize:wide?40:28,fontFamily:V.h,color:V.tx,letterSpacing:2,margin:"0 0 16px"}},"YOUR PORTFOLIO.",E("br"),"YOUR SCHEDULE.",E("br"),"YOUR TERMS."),
+          E("p",{style:{fontSize:15,color:V.md,fontFamily:V.b,lineHeight:1.7,marginBottom:20}},"Stop losing clients to unanswered DMs. InkBook gives you a professional storefront, a booking calendar that fills itself, and payment processing that handles the money talk so you don't have to."),
+          E("div",{style:{display:"flex",flexDirection:"column",gap:12}},
+            [{i:"\u2705",t:"Dedicated artist page with full portfolio"},{i:"\u2705",t:"Calendar-based booking (no more DM scheduling)"},{i:"\u2705",t:"Built-in payment plans (you get paid upfront)"},{i:"\u2705",t:"FaceTime consults reduce no-shows by 60%"},{i:"\u2705",t:"Community reviews build your reputation"}].map((f,i)=>E("div",{key:i,style:{display:"flex",gap:10,alignItems:"center"}},E("span",{style:{fontSize:16}},f.i),E("span",{style:{fontSize:14,color:V.tx,fontFamily:V.b}},f.t))))),
+        E("div",{style:{flex:1,background:V.cd,borderRadius:16,padding:wide?32:20,border:"1px solid "+V.bd}},
+          E("div",{style:{fontSize:wide?48:36,fontWeight:700,color:V.ac,fontFamily:V.m,marginBottom:4}},"$0"),
+          E("div",{style:{fontSize:16,fontWeight:700,color:V.tx,fontFamily:V.b}},"Free to list. Free to showcase."),
+          E("div",{style:{fontSize:14,color:V.md,fontFamily:V.b,marginTop:8,lineHeight:1.6}},"We only make money when you make money. 5% booking fee on completed sessions. No monthly fees. No contracts. Cancel anytime."),
+          E("button",{onClick:()=>go("discover"),style:{background:V.wm,color:"#fff",border:"none",borderRadius:12,padding:"14px 32px",fontSize:15,fontWeight:700,fontFamily:V.b,cursor:"pointer",marginTop:20,width:"100%"}},"Apply as an Artist")))),
+    }),
+
+    // FINAL CTA
+    Sec({py:wide?"80px":"48px",children:E("div",{style:{textAlign:"center",maxWidth:700,margin:"0 auto"}},
+      E("h2",{style:{fontSize:wide?52:32,fontFamily:V.h,color:V.tx,letterSpacing:3,margin:0,lineHeight:1.1}},"YOUR NEXT TATTOO IS",E("br"),E("span",{style:{color:V.ac}},"ONE CLICK AWAY")),
+      E("p",{style:{fontSize:wide?18:15,color:V.md,fontFamily:V.b,marginTop:16,lineHeight:1.7}},"5,200 artists. Real portfolios. Instant booking. Payment plans. FaceTime consults. The only platform built for people who take their ink seriously."),
+      E("button",{onClick:()=>go("discover"),style:{background:V.ac,color:V.bg,border:"none",borderRadius:14,padding:wide?"20px 56px":"16px 40px",fontSize:wide?18:16,fontWeight:700,fontFamily:V.b,cursor:"pointer",marginTop:28}},"Find Your Artist \u2192"),
+      E("p",{style:{fontSize:12,color:V.dm,fontFamily:V.b,marginTop:12}},"Free forever for collectors. 5% booking fee for artists. That's it."))}))
 }
 
 // ─── DISCOVER ─────────────────────────────────────────
